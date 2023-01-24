@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import Time from './Time';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+interface HelloProps {
+  name: string;
+  age: number;
 }
 
-export default App
+const Hello = ({ name, age }: HelloProps) => {
+  const bornYear = () => new Date().getFullYear() - age;
+
+  return (
+    <div>
+      <h1>
+        Hello {name}, you are {age} years old.
+      </h1>
+      <p>Probably you were born in {bornYear()}.</p>
+    </div>
+  );
+};
+
+const App = () => {
+  const name = 'Samu';
+  const age = 29;
+
+  return (
+    <div>
+      <Hello name={name} age={age} />
+      <Time />
+    </div>
+  );
+};
+
+export default App;
