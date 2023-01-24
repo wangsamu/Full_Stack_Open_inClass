@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
-import Time from './Time';
+import Counter from './Counter';
+import Time from './Counter';
 
 interface HelloProps {
   name: string;
@@ -27,7 +28,7 @@ const App = () => {
   return (
     <div>
       <Hello name={name} age={age} />
-      <Time />
+      <Counter />
     </div>
   );
 };
