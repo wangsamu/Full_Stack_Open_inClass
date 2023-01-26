@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-interface TimerProps {}
-
 function Timer() {
   const [time, setTime] = useState(0);
 
