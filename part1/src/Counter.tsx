@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import Button from './Button';
 
 function Counter() {
-  const [time, setTime] = useState(0);
   const [avocados, setAvocados] = useState(0);
   const [cocos, setCocos] = useState(0);
-
-  setTimeout(() => setTime(time + 1), 1000);
 
   const increaseAvocado = () => {
     setAvocados(avocados + 1);
@@ -28,7 +25,6 @@ function Counter() {
 
   return (
     <div>
-      <p>Time since you opened the app: {time}</p>
       <p>
         Avocados:
         {Array.from({ length: avocados }, () => '🥑').map((avocado) => avocado)}
