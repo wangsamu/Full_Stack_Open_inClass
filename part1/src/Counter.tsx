@@ -24,8 +24,7 @@ function Counter() {
     setCocos(cocos - 1);
   };
   const removeLastFruit = () => {
-    const newAllFruits = [...allFruits];
-    newAllFruits.pop();
+    const newAllFruits = [...allFruits].slice(0, -1);
     setAllFruits(newAllFruits);
   };
 
