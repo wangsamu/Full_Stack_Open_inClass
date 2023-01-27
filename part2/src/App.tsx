@@ -22,7 +22,7 @@ const App: FunctionComponent<AppProps> = (props) => {
     const newNote = {
       id: newId,
       content: inputValue,
-      important: false,
+      important: Math.random() < 0.5,
     };
     setNotes([...notes].concat(newNote));
   };
@@ -36,7 +36,9 @@ const App: FunctionComponent<AppProps> = (props) => {
       <h1>Notes</h1>
       <ul>
         {notes.map((note) => (
-          <li key={note.id}>{note.content}</li>
+          <li key={note.id} className={note.important ? 'important' : ''}>
+            {note.content}
+          </li>
         ))}
       </ul>
       <form onSubmit={addNote}>
