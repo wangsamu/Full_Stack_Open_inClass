@@ -4,18 +4,27 @@ import React, {
   KeyboardEvent,
   MouseEvent,
   SyntheticEvent,
+  useEffect,
   useState,
 } from 'react';
 import './App.css';
+import axios from 'axios';
 
-interface AppProps {
-  notes: { id: number; content: string; important: boolean }[];
-}
+// interface AppProps {
+//   notes: { id: number; content: string; important: boolean }[];
+// }
 
-const App: FunctionComponent<AppProps> = (props) => {
-  const [notes, setNotes] = useState(props.notes);
+const App: FunctionComponent = () => {
+  const [notes, setNotes] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [showAll, setShowAll] = useState(true);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/notes').then((response) => {
+      console.log(response.data);
+      setNotes(response.data);
+    });
+  }, []);
 
   const addNote = (event: SyntheticEvent) => {
     event.preventDefault();
