@@ -25,6 +25,7 @@ const App: FunctionComponent<AppProps> = (props) => {
       important: Math.random() < 0.5,
     };
     setNotes([...notes].concat(newNote));
+    setInputValue('');
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
