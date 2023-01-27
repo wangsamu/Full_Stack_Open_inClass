@@ -15,6 +15,7 @@ interface AppProps {
 const App: FunctionComponent<AppProps> = (props) => {
   const [notes, setNotes] = useState(props.notes);
   const [inputValue, setInputValue] = useState('');
+  const [showAll, setShowAll] = useState(true);
 
   const addNote = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -32,16 +33,23 @@ const App: FunctionComponent<AppProps> = (props) => {
     setInputValue(event.target.value);
   };
 
+  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
+
+  const toggleShowAll = () => setShowAll(!showAll);
+
   return (
     <div className='App'>
       <h1>Notes</h1>
       <ul>
-        {notes.map((note) => (
+        {notesToShow.map((note) => (
           <li key={note.id} className={note.important ? 'important' : ''}>
             {note.content}
           </li>
         ))}
       </ul>
+      <button onClick={toggleShowAll}>
+        {showAll ? 'show important' : 'show all'}
+      </button>
       <form onSubmit={addNote}>
         <input type='text' value={inputValue} onChange={handleInput} />
         <button type='submit'>save</button>
