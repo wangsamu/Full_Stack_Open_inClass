@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import axios from 'axios';
 import './index.css';
+
+const promise1 = axios.get('http://localhost:4000/notes');
+console.log(promise1);
+
+const promise2 = axios.get('http://localhost:4000/foobar');
+console.log(promise2);
 
 const notes = [
   {
