@@ -14,6 +14,12 @@ import axios from 'axios';
 //   notes: { id: number; content: string; important: boolean }[];
 // }
 
+interface newNote {
+  id?: number;
+  content?: string;
+  important?: boolean;
+}
+
 const App: FunctionComponent = () => {
   const [notes, setNotes] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -34,6 +40,10 @@ const App: FunctionComponent = () => {
       content: inputValue,
       important: Math.random() < 0.5,
     };
+
+    axios
+      .post('http://localhost:4000/notes', newNote)
+      .then((response) => console.log(response));
     setNotes([...notes].concat(newNote));
     setInputValue('');
   };
