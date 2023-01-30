@@ -4,8 +4,13 @@ import { NoteInterface } from '../App';
 const baseUrl = 'http://localhost:4000/notes';
 
 const getAll = () => {
+  const mockNonExistentNote = {
+    id: 999,
+    content: "I dont't exist in the database",
+    important: true,
+  };
   const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+  return request.then((response) => response.data.concat(mockNonExistentNote));
 };
 
 const create = (newNote: NoteInterface) => {

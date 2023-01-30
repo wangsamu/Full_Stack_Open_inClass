@@ -60,15 +60,17 @@ const App: FunctionComponent = () => {
 
   const toggleImportanceOf = (id: number) => {
     const note = notes.find((note) => note.id === id);
-    const changedNote = { ...note, important: !note.important };
-    noteService.update(changedNote).then((returnedNote) => {
-      console.log(`Toggling the importance of note ${id}`);
-      setNotes(
-        [...notes].map((note) =>
-          note.id === id ? (note = returnedNote) : note
-        )
-      );
-    });
+    if (note) {
+      const changedNote = { ...note, important: !note.important };
+      noteService.update(changedNote).then((returnedNote) => {
+        console.log(`Toggling the importance of note ${id}`);
+        setNotes(
+          [...notes].map((note) =>
+            note.id === id ? (note = returnedNote) : note
+          )
+        );
+      });
+    }
   };
 
   return (
