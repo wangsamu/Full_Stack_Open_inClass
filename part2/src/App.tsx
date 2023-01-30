@@ -9,19 +9,20 @@ import React, {
 } from 'react';
 import './App.css';
 import axios from 'axios';
+import Note from './Note';
 
 // interface AppProps {
 //   notes: { id: number; content: string; important: boolean }[];
 // }
 
-interface newNote {
-  id?: number;
-  content?: string;
-  important?: boolean;
+export interface NoteInterface {
+  id: number;
+  content: string;
+  important: boolean;
 }
 
 const App: FunctionComponent = () => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<NoteInterface[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [showAll, setShowAll] = useState(true);
 
@@ -41,11 +42,11 @@ const App: FunctionComponent = () => {
       important: Math.random() < 0.5,
     };
 
-    axios
-      .post('http://localhost:4000/notes', newNote)
-      .then((response) => console.log(response));
-    setNotes([...notes].concat(newNote));
-    setInputValue('');
+    axios.post('http://localhost:4000/notes', newNote).then((response) => {
+      console.log(response);
+      setNotes([...notes].concat(newNote));
+      setInputValue('');
+    });
   };
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,14 +57,20 @@ const App: FunctionComponent = () => {
 
   const toggleShowAll = () => setShowAll(!showAll);
 
+  const toggleImportance = (id: number) => {
+    setNotes(
+      [...notes].map((note) =>
+        note.id === id ? { ...note, important: !note.important } : note
+      )
+    );
+  };
+
   return (
     <div className='App'>
       <h1>Notes</h1>
       <ul>
         {notesToShow.map((note) => (
-          <li key={note.id} className={note.important ? 'important' : ''}>
-            {note.content}
-          </li>
+          <Note key={note.id} note={note} toggleImportance={toggleImportance} />
         ))}
       </ul>
       <button onClick={toggleShowAll}>

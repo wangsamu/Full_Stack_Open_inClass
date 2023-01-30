@@ -19,6 +19,21 @@
       "id": 4,
       "content": "hola",
       "important": true
+    },
+    {
+      "id": 5,
+      "content": "FOCA?",
+      "important": false
+    },
+    {
+      "id": 6,
+      "content": "patata",
+      "important": false
+    },
+    {
+      "id": 7,
+      "content": "lechuga",
+      "important": false
     }
   ]
 }
