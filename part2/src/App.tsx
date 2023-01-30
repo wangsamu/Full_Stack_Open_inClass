@@ -62,14 +62,22 @@ const App: FunctionComponent = () => {
     const note = notes.find((note) => note.id === id);
     if (note) {
       const changedNote = { ...note, important: !note.important };
-      noteService.update(changedNote).then((returnedNote) => {
-        console.log(`Toggling the importance of note ${id}`);
-        setNotes(
-          [...notes].map((note) =>
-            note.id === id ? (note = returnedNote) : note
-          )
-        );
-      });
+      noteService
+        .update(changedNote)
+        .then((returnedNote) => {
+          console.log(`Toggling the importance of note ${id}`);
+          setNotes(
+            [...notes].map((note) =>
+              note.id === id ? (note = returnedNote) : note
+            )
+          );
+        })
+        .catch((error) => {
+          console.log(
+            `The note with id ${id}, '${note.content}' has already been removed from server`
+          );
+          setNotes(notes.filter((note) => note.id !== id));
+        });
     }
   };
 
