@@ -16,7 +16,7 @@ import Note from './Note';
 // }
 
 export interface NoteInterface {
-  id?: number;
+  id: number;
   content: string;
   important: boolean;
 }
@@ -35,9 +35,9 @@ const App: FunctionComponent = () => {
 
   const addNote = (event: SyntheticEvent) => {
     event.preventDefault();
-    // const newId = Math.max(...notes.map((note) => note.id)) + 1;
+    const newId = Math.max(...notes.map((note) => note.id)) + 1;
     const newNote = {
-      // id: newId,
+      id: newId,
       content: inputValue,
       important: Math.random() < 0.5,
     };
@@ -57,7 +57,7 @@ const App: FunctionComponent = () => {
 
   const toggleShowAll = () => setShowAll(!showAll);
 
-  const toggleImportance = (id: number | undefined) => {
+  const toggleImportance = (id: number) => {
     setNotes(
       [...notes].map((note) =>
         note.id === id ? { ...note, important: !note.important } : note

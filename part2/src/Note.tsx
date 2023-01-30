@@ -3,7 +3,7 @@ import { NoteInterface } from './App';
 
 interface NoteProps {
   note: NoteInterface;
-  toggleImportance: (params: number | undefined) => void;
+  toggleImportance: (params: number) => void;
 }
 const Note: React.FC<NoteProps> = ({ note, toggleImportance }) => {
   const { id, content, important } = note;
@@ -11,7 +11,7 @@ const Note: React.FC<NoteProps> = ({ note, toggleImportance }) => {
 
   return (
     <div>
-      <li key={id} className={important ? 'important' : ''}>
+      <li className={important ? 'important' : ''}>
         {content}
         <button onClick={() => toggleImportance(id)}>{label}</button>
       </li>
