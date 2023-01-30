@@ -15,7 +15,7 @@ import Note from './Note';
 //   notes: { id: number; content: string; important: boolean }[];
 // }
 
-export interface NoteInterface {
+interface NoteInterface {
   id: number;
   content: string;
   important: boolean;
@@ -61,7 +61,7 @@ const App: FunctionComponent = () => {
     const url = `http://localhost:4000/notes/${id}`;
     const note = notes.find((note) => note.id === id);
     const changedNote = { ...note, important: !note.important };
-    axios.patch(url, changedNote).then((response) => {
+    axios.put(url, changedNote).then((response) => {
       console.log(`Toggling the importance of note ${id}`);
       setNotes(
         [...notes].map((note) =>
@@ -94,4 +94,4 @@ const App: FunctionComponent = () => {
   );
 };
 
-export default App;
+export { App as default, type NoteInterface };
