@@ -57,12 +57,18 @@ const App: FunctionComponent = () => {
 
   const toggleShowAll = () => setShowAll(!showAll);
 
-  const toggleImportance = (id: number) => {
-    setNotes(
-      [...notes].map((note) =>
-        note.id === id ? { ...note, important: !note.important } : note
-      )
-    );
+  const toggleImportanceOf = (id: number) => {
+    const url = `http://localhost:4000/notes/${id}`;
+    const note = notes.find((note) => note.id === id);
+    const changedNote = { ...note, important: !note.important };
+    axios.patch(url, changedNote).then((response) => {
+      console.log(`Toggling the importance of note ${id}`);
+      setNotes(
+        [...notes].map((note) =>
+          note.id === id ? (note = response.data) : note
+        )
+      );
+    });
   };
 
   return (
@@ -70,7 +76,11 @@ const App: FunctionComponent = () => {
       <h1>Notes</h1>
       <ul>
         {notesToShow.map((note) => (
-          <Note key={note.id} note={note} toggleImportance={toggleImportance} />
+          <Note
+            key={note.id}
+            note={note}
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
         ))}
       </ul>
       <button onClick={toggleShowAll}>
