@@ -34,6 +34,11 @@
       "id": 7,
       "content": "lechuga",
       "important": false
+    },
+    {
+      "content": "hallooooo?",
+      "important": true,
+      "id": 8
     }
   ]
 }

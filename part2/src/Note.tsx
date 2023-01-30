@@ -3,7 +3,7 @@ import { NoteInterface } from './App';
 
 interface NoteProps {
   note: NoteInterface;
-  toggleImportance: (params: number) => void;
+  toggleImportance: (params: number | undefined) => void;
 }
 const Note: React.FC<NoteProps> = ({ note, toggleImportance }) => {
   const { id, content, important } = note;
