@@ -43,8 +43,8 @@ const App: FunctionComponent = () => {
       important: Math.random() < 0.5,
     };
 
-    axios.post('http://localhost:4000/notes', newNote).then((response) => {
-      console.log(response);
+    noteService.create(newNote).then((returnedNote) => {
+      console.log(returnedNote);
       setNotes([...notes].concat(newNote));
       setInputValue('');
     });
@@ -59,14 +59,13 @@ const App: FunctionComponent = () => {
   const toggleShowAll = () => setShowAll(!showAll);
 
   const toggleImportanceOf = (id: number) => {
-    const url = `http://localhost:4000/notes/${id}`;
     const note = notes.find((note) => note.id === id);
     const changedNote = { ...note, important: !note.important };
-    axios.put(url, changedNote).then((response) => {
+    noteService.update(changedNote).then((returnedNote) => {
       console.log(`Toggling the importance of note ${id}`);
       setNotes(
         [...notes].map((note) =>
-          note.id === id ? (note = response.data) : note
+          note.id === id ? (note = returnedNote) : note
         )
       );
     });
