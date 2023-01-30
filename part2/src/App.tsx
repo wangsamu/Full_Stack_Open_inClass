@@ -10,6 +10,7 @@ import React, {
 import './App.css';
 import axios from 'axios';
 import Note from './Note';
+import noteService from './services/notes';
 
 // interface AppProps {
 //   notes: { id: number; content: string; important: boolean }[];
@@ -27,9 +28,9 @@ const App: FunctionComponent = () => {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/notes').then((response) => {
-      console.log(response.data);
-      setNotes(response.data);
+    noteService.getAll().then((initialNotes) => {
+      console.log(initialNotes);
+      setNotes(initialNotes);
     });
   }, []);
 

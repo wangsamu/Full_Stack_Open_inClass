@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NoteInterface } from '../App';
 
-const baseUrl = 'http://localhost:4000/';
+const baseUrl = 'http://localhost:4000/notes';
 
 const getAll = () => {
   const request = axios.get(baseUrl);
@@ -18,4 +18,4 @@ const update = (newNote: NoteInterface) => {
   return request.then((response) => response.data);
 };
 
-export { getAll, create, update };
+export default { getAll, create, update };
