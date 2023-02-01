@@ -11,9 +11,14 @@ const Note: React.FC<NoteProps> = ({ note, toggleImportance }) => {
 
   return (
     <div>
-      <li className={important ? 'important' : ''}>
+      <li className={important ? 'note-important' : 'note'}>
         {content}
-        <button onClick={() => toggleImportance(id)}>{label}</button>
+        <button
+          className='toggle-importance-button'
+          onClick={() => toggleImportance(id)}
+        >
+          {label}
+        </button>
       </li>
     </div>
   );

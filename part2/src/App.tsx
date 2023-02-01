@@ -11,6 +11,7 @@ import './App.css';
 import axios from 'axios';
 import Note from './Note';
 import noteService from './services/notes';
+import { Notification } from './Notification';
 
 // interface AppProps {
 //   notes: { id: number; content: string; important: boolean }[];
@@ -26,6 +27,7 @@ const App: FunctionComponent = () => {
   const [notes, setNotes] = useState<NoteInterface[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -73,9 +75,12 @@ const App: FunctionComponent = () => {
           );
         })
         .catch((error) => {
-          console.log(
+          setErrorMessage(
             `The note with id ${id}, '${note.content}' has already been removed from server`
           );
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
           setNotes(notes.filter((note) => note.id !== id));
         });
     }
@@ -83,7 +88,8 @@ const App: FunctionComponent = () => {
 
   return (
     <div className='App'>
-      <h1>Notes</h1>
+      <h1 className='logo'>Notes</h1>
+      <Notification errorMessage={errorMessage} />
       <ul>
         {notesToShow.map((note) => (
           <Note
@@ -93,7 +99,7 @@ const App: FunctionComponent = () => {
           />
         ))}
       </ul>
-      <button onClick={toggleShowAll}>
+      <button className='toggle-show-button' onClick={toggleShowAll}>
         {showAll ? 'show important' : 'show all'}
       </button>
       <form onSubmit={addNote}>
